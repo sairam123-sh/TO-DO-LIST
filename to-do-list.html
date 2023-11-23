@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .todo-container {
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .todo-header {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .todo-list {
+      padding: 20px;
+    }
+
+    .todo-item {
+      list-style: none;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #ecf0f1;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .todo-item input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .todo-item button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+
+    .add-todo {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .add-todo input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    .add-todo button {
+      background-color: #2ecc71;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="todo-container">
+    <div class="todo-header">
+      Todo List
+    </div>
+    <ul class="todo-list" id="todoList">
+      <!-- Todo items will be added here dynamically -->
+    </ul>
+    <div class="add-todo">
+      <input type="text" id="newTodo" placeholder="Add a new task">
+      <button onclick="addTodo()">Add</button>
+    </div>
+  </div>
+
+  <script>
+    function addTodo() {
+      const newTodoInput = document.getElementById("newTodo");
+      const todoList = document.getElementById("todoList");
+
+      if (newTodoInput.value.trim() !== "") {
+        const todoItem = document.createElement("li");
+        todoItem.className = "todo-item";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        const todoText = document.createElement("span");
+        todoText.innerText = newTodoInput.value;
+
+        const editButton = document.createElement("button");
+        editButton.innerText = "Edit";
+        editButton.onclick = function () {
+          const newText = prompt("Edit task:", todoText.innerText);
+          if (newText !== null) {
+            todoText.innerText = newText;
+          }
+        };
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete";
+        deleteButton.onclick = function () {
+          todoItem.remove();
+        };
+
+        todoItem.appendChild(checkbox);
+        todoItem.appendChild(todoText);
+        todoItem.appendChild(editButton);
+        todoItem.appendChild(deleteButton);
+
+        todoList.appendChild(todoItem);
+
+        newTodoInput.value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
